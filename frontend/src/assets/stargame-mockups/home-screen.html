@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Shooter - Home Screen</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .home-container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Animated stars background */
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        .game-logo {
+            text-align: center;
+            margin-bottom: 60px;
+            z-index: 10;
+        }
+
+        .game-title {
+            font-size: 72px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 50px rgba(102, 126, 234, 0.5);
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+        }
+
+        .game-subtitle {
+            font-size: 18px;
+            color: #aaa;
+            letter-spacing: 2px;
+        }
+
+        .menu-container {
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            min-width: 400px;
+        }
+
+        .menu-button {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            border: 2px solid #667eea;
+            color: white;
+            padding: 20px 40px;
+            font-size: 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .menu-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .menu-button:hover {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.4), rgba(118, 75, 162, 0.4));
+            border-color: #764ba2;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .menu-button:hover::before {
+            left: 100%;
+        }
+
+        .menu-button.primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-color: #764ba2;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .menu-button.primary:hover {
+            background: linear-gradient(135deg, #7c8ef7, #8a5db0);
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .menu-button-icon {
+            margin-right: 10px;
+            font-size: 24px;
+        }
+
+        .last-session {
+            text-align: center;
+            margin-top: 40px;
+            color: #888;
+            font-size: 14px;
+            z-index: 10;
+        }
+
+        .last-session span {
+            color: #4ade80;
+            font-weight: bold;
+        }
+
+        .footer-info {
+            position: absolute;
+            bottom: 30px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            z-index: 10;
+        }
+
+        .eye-icon {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: rgba(102, 126, 234, 0.3);
+            border: 2px solid #667eea;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+        }
+
+        .eye-icon::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background: #667eea;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="home-container">
+        <div class="stars" id="stars"></div>
+
+        <div class="game-logo">
+            <div class="eye-icon"></div>
+            <h1 class="game-title">STAR SHOOTER</h1>
+            <p class="game-subtitle">EYE-TRACKING EDITION</p>
+        </div>
+
+        <div class="menu-container">
+            <button class="menu-button primary">
+                <span class="menu-button-icon">▶</span>
+                CONTINUE GAME
+            </button>
+            <button class="menu-button">
+                <span class="menu-button-icon">+</span>
+                NEW GAME
+            </button>
+            <button class="menu-button">
+                <span class="menu-button-icon">📊</span>
+                STATISTICS
+            </button>
+            <button class="menu-button">
+                <span class="menu-button-icon">⚙</span>
+                SETTINGS
+            </button>
+            <button class="menu-button">
+                <span class="menu-button-icon">❌</span>
+                EXIT
+            </button>
+        </div>
+
+        <div class="last-session">
+            Last Session: Level <span>7</span> | Score <span>24,580</span>
+        </div>
+
+        <div class="footer-info">
+            v1.0.0 | Eye Tracking Required | Python Game Engine
+        </div>
+    </div>
+
+    <script>
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 150; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+    </script>
+</body>
+</html>

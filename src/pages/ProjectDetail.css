@@ -1,0 +1,344 @@
+.project-detail-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
+  color: #fff;
+  padding-top: 20px;
+}
+
+.detail-header {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background: rgba(102, 126, 234, 0.2);
+  border-color: #667eea;
+  transform: translateX(-5px);
+}
+
+.detail-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem 2rem 3rem;
+}
+
+.detail-hero {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.detail-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.detail-subtitle {
+  font-size: 1.3rem;
+  color: #aaa;
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+.detail-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.detail-image-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5rem;
+}
+
+.detail-image-container {
+  max-width: 800px;
+  max-height: 600px;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(102, 126, 234, 0.3);
+  box-shadow: 0 20px 60px rgba(102, 126, 234, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.detail-image {
+  width: 100%;
+  height: 100%;
+  max-height: 600px;
+  object-fit: contain;
+  display: block;
+}
+
+.detail-content-grid {
+  display: grid;
+  gap: 3rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.detail-section {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 2.5rem;
+}
+
+.detail-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #667eea;
+}
+
+.detail-section p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #ccc;
+}
+
+.tech-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.tech-item {
+  padding: 1rem 1.5rem;
+  background: rgba(102, 126, 234, 0.1);
+  border: 1px solid rgba(102, 126, 234, 0.3);
+  border-radius: 10px;
+  text-align: center;
+  color: #667eea;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.tech-item:hover {
+  background: rgba(102, 126, 234, 0.2);
+  border-color: #667eea;
+  transform: translateY(-3px);
+}
+
+.features-list,
+.challenges-list {
+  list-style: none;
+  padding: 0;
+}
+
+.features-list li,
+.challenges-list li {
+  padding: 1rem 0;
+  padding-left: 2.5rem;
+  position: relative;
+  color: #ccc;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.features-list li:last-child,
+.challenges-list li:last-child {
+  border-bottom: none;
+}
+
+.features-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #4ade80;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.challenges-list li::before {
+  content: "⚡";
+  position: absolute;
+  left: 0;
+  font-size: 1.3rem;
+}
+
+.outcome-section {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  border-color: rgba(102, 126, 234, 0.3);
+}
+
+.outcome-section p {
+  font-size: 1.2rem;
+  color: #fff;
+  font-weight: 500;
+}
+
+.detail-footer {
+  text-align: center;
+  margin-top: 5rem;
+  padding: 3rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+}
+
+.detail-footer h3 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #fff;
+}
+
+.footer-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+  background: rgba(102, 126, 234, 0.2);
+  border: 1px solid #667eea;
+  color: #667eea;
+}
+
+.btn-secondary:hover {
+  background: rgba(102, 126, 234, 0.3);
+  transform: translateY(-3px);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: #fff;
+  transform: translateY(-3px);
+}
+
+.not-found {
+  text-align: center;
+  padding: 5rem 2rem;
+}
+
+.not-found h2 {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  color: #667eea;
+}
+
+@media (max-width: 768px) {
+  .detail-title {
+    font-size: 2rem;
+  }
+
+  .detail-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .detail-section {
+    padding: 1.5rem;
+  }
+
+  .tech-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+
+  .footer-actions {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Mockups Gallery Styles */
+.mockups-section {
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.mockups-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.mockup-item {
+  border-radius: 15px;
+  overflow: hidden;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  max-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.mockup-item:hover {
+  border-color: rgba(102, 126, 234, 0.5);
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+}
+
+.mockup-item img {
+  width: 100%;
+  height: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .mockups-gallery {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}

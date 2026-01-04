@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eye-Tracking Star Shooter - Game Mockup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .game-container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
+            overflow: hidden;
+        }
+
+        /* Animated stars background */
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* HUD Elements */
+        .hud {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 100;
+        }
+
+        .hud-left, .hud-right {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 15px 25px;
+            color: white;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .score {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4ade80;
+        }
+
+        .label {
+            font-size: 12px;
+            color: #aaa;
+            margin-bottom: 5px;
+        }
+
+        .health-bar {
+            width: 150px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+
+        .health-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4ade80, #22c55e);
+            width: 75%;
+            transition: width 0.3s;
+        }
+
+        /* Eye Tracking Indicator */
+        .eye-tracker {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #667eea;
+            border-radius: 15px;
+            padding: 15px 30px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.6);
+        }
+
+        .eye-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .eye-dot {
+            width: 12px;
+            height: 12px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.7; }
+        }
+
+        /* Spaceship */
+        .spaceship {
+            position: absolute;
+            bottom: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 100px;
+            z-index: 10;
+            animation: hover 2s ease-in-out infinite;
+        }
+
+        @keyframes hover {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        .ship-body {
+            position: relative;
+            width: 40px;
+            height: 60px;
+            background: linear-gradient(180deg, #667eea, #764ba2);
+            border-radius: 50% 50% 10px 10px;
+            margin: 0 auto;
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.8);
+        }
+
+        .ship-body::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .ship-wing-left,
+        .ship-wing-right {
+            position: absolute;
+            top: 20px;
+            width: 25px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #4c5fd5);
+            box-shadow: 0 0 15px rgba(102, 126, 234, 0.6);
+        }
+
+        .ship-wing-left {
+            left: -5px;
+            border-radius: 20px 5px 5px 20px;
+            clip-path: polygon(0 0, 100% 20%, 100% 80%, 0 100%);
+        }
+
+        .ship-wing-right {
+            right: -5px;
+            border-radius: 5px 20px 20px 5px;
+            clip-path: polygon(0 20%, 100% 0, 100% 100%, 0 80%);
+        }
+
+        .ship-cannon-left,
+        .ship-cannon-right {
+            position: absolute;
+            bottom: 5px;
+            width: 6px;
+            height: 15px;
+            background: #764ba2;
+            border-radius: 2px;
+        }
+
+        .ship-cannon-left {
+            left: 8px;
+        }
+
+        .ship-cannon-right {
+            right: 8px;
+        }
+
+        .ship-engine {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 30px solid #f97316;
+            filter: blur(2px);
+            opacity: 0.9;
+            animation: engineFlame 0.3s infinite;
+        }
+
+        @keyframes engineFlame {
+            0%, 100% { 
+                opacity: 0.9; 
+                transform: translateX(-50%) scaleY(1);
+                filter: blur(2px);
+            }
+            50% { 
+                opacity: 0.7; 
+                transform: translateX(-50%) scaleY(1.4);
+                filter: blur(3px);
+            }
+        }
+
+        /* Asteroids */
+        .asteroid {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: #666;
+            border-radius: 50%;
+            box-shadow: inset -10px -10px 20px rgba(0, 0, 0, 0.5),
+                        0 0 20px rgba(255, 0, 0, 0.3);
+            animation: rotate 4s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .asteroid1 { top: 100px; right: 20%; }
+        .asteroid2 { top: 200px; left: 15%; width: 70px; height: 70px; }
+        .asteroid3 { top: 150px; right: 35%; width: 40px; height: 40px; }
+
+        /* Laser beams */
+        .laser {
+            position: absolute;
+            width: 4px;
+            height: 30px;
+            background: linear-gradient(180deg, #4ade80, transparent);
+            box-shadow: 0 0 10px #4ade80;
+            animation: laserMove 1.5s linear infinite;
+        }
+
+        @keyframes laserMove {
+            from { transform: translateY(0); opacity: 1; }
+            to { transform: translateY(-400px); opacity: 0; }
+        }
+
+        .laser1 { bottom: 230px; left: calc(50% - 20px); }
+        .laser2 { bottom: 230px; left: calc(50% + 15px); animation-delay: 0.5s; }
+
+        /* Power-ups */
+        .powerup {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.8);
+            top: 300px;
+            left: 60%;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Controls instruction */
+        .controls {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 15px 30px;
+            color: white;
+            text-align: center;
+            max-width: 500px;
+        }
+
+        .controls h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .controls p {
+            font-size: 14px;
+            color: #ccc;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            color: #4ade80;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <!-- Animated stars -->
+        <div class="stars" id="stars"></div>
+
+        <!-- HUD -->
+        <div class="hud">
+            <div class="hud-left">
+                <div class="label">SCORE</div>
+                <div class="score">12,450</div>
+            </div>
+            <div class="hud-right">
+                <div class="label">HEALTH</div>
+                <div class="health-bar">
+                    <div class="health-fill"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Eye Tracking Indicator -->
+        <div class="eye-tracker">
+            <div class="eye-status">
+                <div class="eye-dot"></div>
+                <span>Eye Tracking Active</span>
+            </div>
+        </div>
+
+        <!-- Spaceship -->
+        <div class="spaceship">
+            <div class="ship-body">
+                <div class="ship-wing-left"></div>
+                <div class="ship-wing-right"></div>
+                <div class="ship-cannon-left"></div>
+                <div class="ship-cannon-right"></div>
+                <div class="ship-engine"></div>
+            </div>
+        </div>
+
+        <!-- Asteroids -->
+        <div class="asteroid asteroid1"></div>
+        <div class="asteroid asteroid2"></div>
+        <div class="asteroid asteroid3"></div>
+
+        <!-- Laser beams -->
+        <div class="laser laser1"></div>
+        <div class="laser laser2"></div>
+
+        <!-- Power-up -->
+        <div class="powerup"></div>
+
+        <!-- Controls instruction -->
+        <div class="controls">
+            <h3>🎮 CONTROLS</h3>
+            <p>
+                <span class="highlight">Move Eyes</span> to control spaceship | 
+                <span class="highlight">Blink</span> to fire laser
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Generate random stars
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+    </script>
+</body>
+</html>
